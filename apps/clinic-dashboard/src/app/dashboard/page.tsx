@@ -17,6 +17,8 @@ import {
   PlusCircle,
   FileText,
   Stethoscope,
+  BedDouble,
+  Receipt,
 } from "lucide-react";
 
 export default function DashboardOverviewPage() {
@@ -90,6 +92,28 @@ export default function DashboardOverviewPage() {
       color: "text-slate-700 bg-slate-100 border-slate-200",
       link: "/dashboard/patients",
     },
+    {
+      title: "Admitted (IPD)",
+      value: kpis?.admitted_patients ?? 0,
+      icon: BedDouble,
+      color: "text-purple-600 bg-purple-50 border-purple-200",
+      link: "/dashboard/admissions",
+    },
+    {
+      title: "Available Beds",
+      value: `${kpis?.available_beds ?? 0}/${kpis?.total_beds ?? 0}`,
+      icon: BedDouble,
+      color: "text-emerald-700 bg-emerald-50 border-emerald-200",
+      link: "/dashboard/admissions",
+    },
+    {
+      title: "Pending Bills",
+      value: kpis?.pending_invoices ?? 0,
+      icon: Receipt,
+      color: "text-amber-700 bg-amber-50 border-amber-200",
+      highlight: (kpis?.pending_invoices ?? 0) > 0,
+      link: "/dashboard/billing",
+    },
   ];
 
   return (
@@ -98,14 +122,21 @@ export default function DashboardOverviewPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Clinic Operational Overview
+            Hospital Operational Overview
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Real-time status for Kumar Dental Clinic • Logged in as{" "}
+            Real-time OPD & IPD status for Nidaan Children Hospital • Logged in as{" "}
             <span className="font-semibold text-teal-700">{user?.role}</span>
           </p>
         </div>
         <div className="flex items-center gap-2.5">
+          <button
+            onClick={() => router.push("/dashboard/admissions")}
+            className="px-3.5 py-2 text-xs font-semibold bg-white border border-purple-300 text-purple-700 rounded-xl hover:bg-purple-50 shadow-sm flex items-center gap-1.5 transition-all"
+          >
+            <BedDouble className="w-3.5 h-3.5 text-purple-600" />
+            IPD & Beds
+          </button>
           <button
             onClick={() => router.push("/dashboard/patients")}
             className="px-3.5 py-2 text-xs font-semibold bg-white border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 shadow-sm flex items-center gap-1.5 transition-all"

@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const backendUrl = process.env.NEXT_PUBLIC_API_URL || "https://dental-clinic-ws8b.onrender.com/api/v1";
+const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
 
 const nextConfig: NextConfig = {
   /* config options here */

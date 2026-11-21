@@ -31,8 +31,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     async function initAuth() {
-      const savedUser = localStorage.getItem("kumar_staff_user");
-      const token = localStorage.getItem("kumar_staff_token");
+      const savedUser = localStorage.getItem("nidaan_staff_user");
+      const token = localStorage.getItem("nidaan_staff_token");
 
       if (token && savedUser) {
         try {

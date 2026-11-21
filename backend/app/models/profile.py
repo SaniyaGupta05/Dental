@@ -1,6 +1,6 @@
 from datetime import date
 from typing import Optional, List
-from sqlalchemy import String, Boolean, Integer, Text, Date, ForeignKey
+from sqlalchemy import String, Boolean, Integer, Float, Text, Date, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.core.database import Base
 from app.models.base import UUIDMixin, TimestampMixin
@@ -15,6 +15,11 @@ class PatientProfile(Base, UUIDMixin, TimestampMixin):
     date_of_birth: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
     gender: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
     blood_group: Mapped[Optional[str]] = mapped_column(String(10), nullable=True)
+    guardian_name: Mapped[Optional[str]] = mapped_column(String(120), nullable=True)
+    guardian_relation: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    guardian_phone: Mapped[Optional[str]] = mapped_column(String(25), nullable=True)
+    weight_kg: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
+    height_cm: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
     emergency_contact_name: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
     emergency_contact_phone: Mapped[Optional[str]] = mapped_column(String(25), nullable=True)
     medical_history_notes: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
@@ -29,6 +34,8 @@ class PatientProfile(Base, UUIDMixin, TimestampMixin):
     treatment_records: Mapped[List["TreatmentRecord"]] = relationship("TreatmentRecord", back_populates="patient")
     prescriptions: Mapped[List["Prescription"]] = relationship("Prescription", back_populates="patient")
     follow_ups: Mapped[List["FollowUp"]] = relationship("FollowUp", back_populates="patient", cascade="all, delete-orphan")
+    admissions: Mapped[List["Admission"]] = relationship("Admission", back_populates="patient")
+    invoices: Mapped[List["Invoice"]] = relationship("Invoice", back_populates="patient")
 
     @property
     def full_name(self) -> str:
@@ -53,6 +60,7 @@ class DoctorProfile(Base, UUIDMixin, TimestampMixin):
     availabilities: Mapped[List["DoctorAvailability"]] = relationship("DoctorAvailability", back_populates="doctor", cascade="all, delete-orphan")
     treatment_records: Mapped[List["TreatmentRecord"]] = relationship("TreatmentRecord", back_populates="doctor")
     prescriptions: Mapped[List["Prescription"]] = relationship("Prescription", back_populates="doctor")
+    admissions: Mapped[List["Admission"]] = relationship("Admission", back_populates="doctor")
 
 
 class StaffProfile(Base, UUIDMixin, TimestampMixin):

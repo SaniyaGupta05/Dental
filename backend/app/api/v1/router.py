@@ -9,6 +9,8 @@ from app.api.v1 import (
     documents,
     notifications,
     admin,
+    admissions,
+    billing,
 )
 
 api_router = APIRouter()
@@ -24,4 +26,6 @@ api_router.include_router(clinical.router, prefix="/clinical", tags=["Clinical R
 api_router.include_router(documents.router, prefix="/documents", tags=["Medical Documents"])
 api_router.include_router(notifications.router, prefix="/notifications", tags=["Notifications & Follow-ups"])
 api_router.include_router(admin.router, prefix="/admin", tags=["Clinic Administration & Settings"])
+api_router.include_router(admissions.router, prefix="/admissions", tags=["IPD Admissions & Bed Management"])
+api_router.include_router(billing.router, prefix="/billing", tags=["OPD & IPD Billing"])
 

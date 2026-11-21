@@ -16,6 +16,25 @@ from app.models.notification import (
     FollowUpStatus,
 )
 from app.models.audit import AuditLog
+from app.models.admission import (
+    Ward,
+    Bed,
+    Admission,
+    InpatientNote,
+    WardType,
+    BedStatus,
+    AdmissionStatus,
+    AdmissionType,
+    InpatientNoteType,
+)
+from app.models.billing import (
+    Invoice,
+    InvoiceItem,
+    BillingType,
+    InvoiceStatus,
+    PaymentMethod,
+    InvoiceItemCategory,
+)
 
 __all__ = [
     "Base",
@@ -49,4 +68,19 @@ __all__ = [
     "DeliveryStatus",
     "FollowUpStatus",
     "AuditLog",
+    "Ward",
+    "Bed",
+    "Admission",
+    "InpatientNote",
+    "WardType",
+    "BedStatus",
+    "AdmissionStatus",
+    "AdmissionType",
+    "InpatientNoteType",
+    "Invoice",
+    "InvoiceItem",
+    "BillingType",
+    "InvoiceStatus",
+    "PaymentMethod",
+    "InvoiceItemCategory",
 ]

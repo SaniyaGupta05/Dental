@@ -13,6 +13,8 @@ from app.models.appointment import Appointment, AppointmentStatus, AppointmentEv
 from app.models.notification import FollowUp, FollowUpStatus
 from app.models.audit import AuditLog
 from app.models.service import ClinicSetting
+from app.models.admission import Admission, AdmissionStatus, Bed, BedStatus
+from app.models.billing import Invoice, InvoiceStatus
 from app.schemas.admin import (
     DashboardStatsResponse,
     PatientSummary,
@@ -53,6 +55,14 @@ def get_dashboard_kpis(
     # Total patients query
     total_patients = db.query(func.count(PatientProfile.id)).scalar() or 0
 
+    # IPD & Billing KPIs
+    admitted_patients = db.query(func.count(Admission.id)).filter(Admission.status == AdmissionStatus.ADMITTED.value).scalar() or 0
+    total_beds = db.query(func.count(Bed.id)).filter(Bed.is_active == True).scalar() or 0
+    available_beds = db.query(func.count(Bed.id)).filter(Bed.is_active == True, Bed.status == BedStatus.AVAILABLE.value).scalar() or 0
+    pending_invoices = db.query(func.count(Invoice.id)).filter(
+        Invoice.status.in_([InvoiceStatus.ISSUED.value, InvoiceStatus.PARTIALLY_PAID.value])
+    ).scalar() or 0
+
     # Recent operational activities
     recent_events = (
         db.query(AppointmentEvent)
@@ -80,6 +90,10 @@ def get_dashboard_kpis(
         cancellation_requests=cancellation_requests,
         upcoming_follow_ups=upcoming_follow_ups,
         total_patients=total_patients,
+        admitted_patients=admitted_patients,
+        available_beds=available_beds,
+        total_beds=total_beds,
+        pending_invoices=pending_invoices,
         recent_activity=activity
     )
 

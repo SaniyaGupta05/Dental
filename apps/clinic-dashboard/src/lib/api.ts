@@ -1,6 +1,6 @@
 const API_BASE_URL = (
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://dental-clinic-ws8b.onrender.com/api/v1"
+  "http://localhost:8000/api/v1"
 ).replace(/\/+$/, "");
 
 export interface ApiError {
@@ -12,19 +12,19 @@ export interface ApiError {
 class ApiClient {
   private getAuthToken(): string | null {
     if (typeof window === "undefined") return null;
-    return localStorage.getItem("kumar_staff_token");
+    return localStorage.getItem("nidaan_staff_token");
   }
 
   public setAuthToken(token: string): void {
     if (typeof window !== "undefined") {
-      localStorage.setItem("kumar_staff_token", token);
+      localStorage.setItem("nidaan_staff_token", token);
     }
   }
 
   public clearAuthToken(): void {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("kumar_staff_token");
-      localStorage.removeItem("kumar_staff_user");
+      localStorage.removeItem("nidaan_staff_token");
+      localStorage.removeItem("nidaan_staff_user");
     }
   }
 
@@ -69,7 +69,7 @@ class ApiClient {
     });
     this.setAuthToken(data.access_token);
     if (typeof window !== "undefined") {
-      localStorage.setItem("kumar_staff_user", JSON.stringify(data));
+      localStorage.setItem("nidaan_staff_user", JSON.stringify(data));
     }
     return data;
   }
@@ -235,6 +235,88 @@ class ApiClient {
 
   async getAvailability(doctorId: string, dateStr: string) {
     return this.request<any>(`/availability?doctor_id=${doctorId}&date=${dateStr}`);
+  }
+
+  // IPD Admissions & Ward / Bed Management
+  async getWards() {
+    return this.request<any[]>("/admissions/wards");
+  }
+
+  async updateBedStatus(bedId: string, status: string, notes?: string) {
+    return this.request<any>(`/admissions/beds/${bedId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ status, notes }),
+    });
+  }
+
+  async getAdmissions(params?: { status?: string; patient_id?: string; doctor_id?: string }) {
+    const query = new URLSearchParams();
+    if (params?.status) query.append("status", params.status);
+    if (params?.patient_id) query.append("patient_id", params.patient_id);
+    if (params?.doctor_id) query.append("doctor_id", params.doctor_id);
+    const qs = query.toString();
+    return this.request<any[]>(`/admissions${qs ? `?${qs}` : ""}`);
+  }
+
+  async getAdmissionDetail(admissionId: string) {
+    return this.request<any>(`/admissions/${admissionId}`);
+  }
+
+  async createAdmission(data: any) {
+    return this.request<any>("/admissions", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  }
+
+  async transferAdmissionBed(admissionId: string, new_bed_id: string, reason?: string) {
+    return this.request<any>(`/admissions/${admissionId}/transfer`, {
+      method: "POST",
+      body: JSON.stringify({ new_bed_id, reason }),
+    });
+  }
+
+  async addInpatientNote(admissionId: string, data: any) {
+    return this.request<any>(`/admissions/${admissionId}/notes`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  }
+
+  async dischargeAdmission(admissionId: string, data: any) {
+    return this.request<any>(`/admissions/${admissionId}/discharge`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  }
+
+  // Billing & Receipts (OPD + IPD)
+  async getInvoices(params?: { billing_type?: string; status?: string; patient_id?: string; admission_id?: string }) {
+    const query = new URLSearchParams();
+    if (params?.billing_type) query.append("billing_type", params.billing_type);
+    if (params?.status) query.append("status", params.status);
+    if (params?.patient_id) query.append("patient_id", params.patient_id);
+    if (params?.admission_id) query.append("admission_id", params.admission_id);
+    const qs = query.toString();
+    return this.request<any[]>(`/billing/invoices${qs ? `?${qs}` : ""}`);
+  }
+
+  async getInvoiceDetail(invoiceId: string) {
+    return this.request<any>(`/billing/invoices/${invoiceId}`);
+  }
+
+  async createInvoice(data: any) {
+    return this.request<any>("/billing/invoices", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  }
+
+  async recordInvoicePayment(invoiceId: string, amount: number, payment_method: string, notes?: string) {
+    return this.request<any>(`/billing/invoices/${invoiceId}/pay`, {
+      method: "POST",
+      body: JSON.stringify({ amount, payment_method, notes }),
+    });
   }
 }
 

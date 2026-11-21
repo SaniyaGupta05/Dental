@@ -27,17 +27,17 @@ export default function Header() {
       <div className="flex items-center gap-6 text-xs text-slate-600">
         <div className="flex items-center gap-1.5 font-medium">
           <Clock className="w-3.5 h-3.5 text-teal-600" />
-          <span>Mon–Sat: 10AM–1PM & 5PM–8PM</span>
+          <span>Mon–Sat: 8:30AM–8:30PM</span>
           <span className="text-slate-400">|</span>
-          <span className="text-rose-500 font-semibold">Sun Closed</span>
+          <span className="text-emerald-600 font-semibold">24x7 IPD & Emergency</span>
         </div>
         <div className="hidden lg:flex items-center gap-1.5 text-slate-500">
           <MapPin className="w-3.5 h-3.5 text-slate-400" />
-          <span>A-6, Yogeshwar Jyot Society, Gotri, Vadodara</span>
+          <span>Veer Enclave, Manjalpur, Vadodara</span>
         </div>
         <div className="hidden md:flex items-center gap-1.5 text-slate-500">
           <Phone className="w-3.5 h-3.5 text-slate-400" />
-          <span>+91 98240 37497</span>
+          <span>+91 94263 22819</span>
         </div>
       </div>
 

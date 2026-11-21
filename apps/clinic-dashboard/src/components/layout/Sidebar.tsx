@@ -15,6 +15,8 @@ import {
   ShieldAlert,
   LogOut,
   Sparkles,
+  BedDouble,
+  Receipt,
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -30,9 +32,21 @@ export default function Sidebar() {
       roles: ["ADMIN", "RECEPTIONIST", "DOCTOR"],
     },
     {
-      label: "Appointments",
+      label: "Appointments (OPD)",
       href: "/dashboard/appointments",
       icon: CalendarDays,
+      roles: ["ADMIN", "RECEPTIONIST", "DOCTOR"],
+    },
+    {
+      label: "Admissions & Beds (IPD)",
+      href: "/dashboard/admissions",
+      icon: BedDouble,
+      roles: ["ADMIN", "RECEPTIONIST", "DOCTOR"],
+    },
+    {
+      label: "Billing & Receipts",
+      href: "/dashboard/billing",
+      icon: Receipt,
       roles: ["ADMIN", "RECEPTIONIST", "DOCTOR"],
     },
     {
@@ -84,15 +98,15 @@ export default function Sidebar() {
         <div className="w-11 h-12 rounded-xl overflow-hidden bg-white border border-slate-700 flex items-center justify-center shrink-0 shadow-lg">
           <img
             src="/logo.jpg"
-            alt="Kumar Dental Clinic Logo"
+            alt="Nidaan Children Hospital Logo"
             className="w-full h-full object-cover"
           />
         </div>
         <div>
           <h1 className="font-bold text-base tracking-wide text-white flex items-center gap-1.5">
-            Kumar Dental
+            Nidaan Children
           </h1>
-          <p className="text-xs text-teal-400 font-medium">Vadodara • Est. 1988</p>
+          <p className="text-xs text-teal-400 font-medium">Vadodara • OPD & IPD</p>
         </div>
       </div>
 

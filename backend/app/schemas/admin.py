@@ -11,6 +11,10 @@ class DashboardStatsResponse(BaseModel):
     cancellation_requests: int
     upcoming_follow_ups: int
     total_patients: int
+    admitted_patients: int = 0
+    available_beds: int = 0
+    total_beds: int = 0
+    pending_invoices: int = 0
     recent_activity: List[Dict[str, Any]] = []
 
 

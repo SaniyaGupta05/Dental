@@ -13,7 +13,7 @@ class Settings(BaseSettings):
 
     # General
     ENVIRONMENT: Literal["development", "staging", "production"] = "development"
-    PROJECT_NAME: str = "Kumar Dental Clinic API"
+    PROJECT_NAME: str = "Nidaan Children Hospital API"
     VERSION: str = "1.0.0"
     API_V1_PREFIX: str = "/api/v1"
 
@@ -30,13 +30,13 @@ class Settings(BaseSettings):
 
     # Database
     DATABASE_URL: str = Field(
-        default="postgresql+psycopg://kumar_admin:kumar_secure_password_123@localhost:5432/kumar_dental_db",
+        default="sqlite:///./nidaan_hospital.db",
         description="Database connection URL"
     )
 
     # JWT Authentication
     JWT_SECRET: str = Field(
-        default="kumar_dental_jwt_secret_change_me_in_production_min_32_chars",
+        default="nidaan_hospital_jwt_secret_change_me_in_production_min_32_chars",
         min_length=32,
     )
     JWT_ALGORITHM: str = "HS256"
@@ -64,11 +64,11 @@ class Settings(BaseSettings):
 
     # Clinic Defaults
     CLINIC_TIMEZONE: str = "Asia/Kolkata"
-    CLINIC_NAME: str = "Kumar Dental Clinic"
-    CLINIC_PHONE_PRIMARY: str = "+919824037497"
-    CLINIC_PHONE_SECONDARY: str = "+919512037497"
-    CLINIC_LANDLINE: str = "+912652314153"
-    CLINIC_ADDRESS: str = "A-6, Yogeshwar Jyot Society, Near Mother's School, Gotri, Vadodara - 390021, Gujarat, India"
+    CLINIC_NAME: str = "Nidaan Children Hospital"
+    CLINIC_PHONE_PRIMARY: str = "+919426322819"
+    CLINIC_PHONE_SECONDARY: str = "+918200122052"
+    CLINIC_LANDLINE: str = "+912652644217"
+    CLINIC_ADDRESS: str = "303-305 & 4th Floor, Veer Enclave, Near Tulsidham Char Rasta, Manjalpur, Vadodara - 390011, Gujarat, India"
 
     # Rate Limiting
     RATE_LIMIT_PER_MINUTE: int = 60

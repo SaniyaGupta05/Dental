@@ -6,8 +6,8 @@ import { Sparkles, Shield, Stethoscope, Lock, Mail, AlertCircle, ArrowRight } fr
 
 export default function LoginPage() {
   const { login } = useAuth();
-  const [email, setEmail] = useState("dr.kumar@kumardentalclinic.com");
-  const [password, setPassword] = useState("DrKumar@2026");
+  const [email, setEmail] = useState("dr.ravindra@nidaanchildrenhospital.com");
+  const [password, setPassword] = useState("DrRavindra@2026");
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -38,15 +38,15 @@ export default function LoginPage() {
           <div className="w-20 h-24 mx-auto rounded-2xl overflow-hidden bg-white border border-slate-200 flex items-center justify-center shadow-lg">
             <img
               src="/logo.jpg"
-              alt="Kumar Dental Clinic Logo"
+              alt="Nidaan Children Hospital Logo"
               className="w-full h-full object-cover"
             />
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-            Doctor Portal
+            Nidaan Hospital Portal
           </h1>
           <p className="text-xs text-slate-500">
-            Kumar Dental Clinic • Vadodara (Est. 1988)
+            Nidaan Children Hospital • Manjalpur, Vadodara
           </p>
         </div>
 
@@ -71,7 +71,7 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@kumardentalclinic.com"
+                placeholder="name@nidaanchildrenhospital.com"
                 className="w-full pl-10 pr-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/40 focus:border-teal-500 transition-all"
               />
             </div>
@@ -113,26 +113,26 @@ export default function LoginPage() {
             <button
               type="button"
               id="quickfill-reception"
-              onClick={() => handleQuickFill("reception@kumardentalclinic.com", "Reception@2026")}
+              onClick={() => handleQuickFill("reception@nidaanchildrenhospital.com", "Reception@2026")}
               className="px-2.5 py-2 bg-slate-100 hover:bg-teal-50 hover:border-teal-200 border border-slate-200 rounded-lg text-[11px] font-medium text-slate-700 hover:text-teal-700 text-center transition-all"
             >
               Reception
             </button>
             <button
               type="button"
-              id="quickfill-dr-kumar"
-              onClick={() => handleQuickFill("dr.kumar@kumardentalclinic.com", "DrKumar@2026")}
+              id="quickfill-dr-ravindra"
+              onClick={() => handleQuickFill("dr.ravindra@nidaanchildrenhospital.com", "DrRavindra@2026")}
               className="px-2.5 py-2 bg-slate-100 hover:bg-teal-50 hover:border-teal-200 border border-slate-200 rounded-lg text-[11px] font-medium text-slate-700 hover:text-teal-700 text-center transition-all"
             >
-              Dr. Kumar
+              Dr. Ravindra
             </button>
             <button
               type="button"
-              id="quickfill-dr-neha"
-              onClick={() => handleQuickFill("dr.neha@kumardentalclinic.com", "DrNeha@2026")}
+              id="quickfill-dr-valay"
+              onClick={() => handleQuickFill("dr.valay@nidaanchildrenhospital.com", "DrValay@2026")}
               className="px-2.5 py-2 bg-slate-100 hover:bg-teal-50 hover:border-teal-200 border border-slate-200 rounded-lg text-[11px] font-medium text-slate-700 hover:text-teal-700 text-center transition-all"
             >
-              Dr. Neha
+              Dr. Valay
             </button>
           </div>
         </div>
